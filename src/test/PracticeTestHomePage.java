@@ -36,13 +36,13 @@ public class PracticeTestHomePage {
 	
   @Test(priority = 0)
   public void testThreeSliders(){	  
-	  int countSliders = driver.findElements(By.xpath("//div[@class='n2-ss-slider-3']/div/div/img")).size();
+	  int countSliders = objHomePage.getSliders().size();
 	  Assert.assertEquals(countSliders, 3);
   }
   
   @Test(priority = 1)
   public void testThreeArrivals() {
-	  int countArrivals = driver.findElements(By.xpath("//ul[@class='products']")).size();
+	  int countArrivals = objHomePage.getArrivals().size();
 	  Assert.assertEquals(countArrivals, 3);
   }  
 
