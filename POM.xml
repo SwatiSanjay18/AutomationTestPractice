@@ -6,7 +6,7 @@
 			<class name="test.PracticeTestHomePage">
 				<methods>
 					<include name="testThreeSliders"/>
-					<include name="testThreeArrivals"/>
+					<include name="testThreeArrivals"/> 
 					<include name="testArrImgNavigate"/>
 				</methods>
 			</class>

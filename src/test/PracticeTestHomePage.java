@@ -56,9 +56,8 @@ public class PracticeTestHomePage {
 	  Assert.assertEquals(countArrivals, 3);
   }  
   
-  @Test
+  @Test(dependsOnMethods = { "testThreeArrivals" })
   public void testArrImgNavigate() throws Exception {
-	  testThreeArrivals();
 	  int count = objHomePage.getArrivals().size();
 	  for(int i = 0; i < count; i++) {
 		  objHomePage.getArrivals().get(i).click();
