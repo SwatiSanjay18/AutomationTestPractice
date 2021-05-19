@@ -8,6 +8,7 @@
 					<include name="testThreeSliders"/>
 					<include name="testThreeArrivals"/> 
 					<include name="testArrImgNavigate"/>
+					<include name="testArrBookDesc"/>
 				</methods>
 			</class>
 		</classes>

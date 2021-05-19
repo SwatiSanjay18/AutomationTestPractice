@@ -3,30 +3,21 @@ package test;
 import org.testng.annotations.Test;
 
 import pages.PracticeHomePage;
+import pages.PracticeProductPage;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import org.omg.CORBA.TIMEOUT;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class PracticeTestHomePage {
 	WebDriver driver;
 	PracticeHomePage objHomePage;
+	PracticeProductPage objProductPage;
 	
   @BeforeClass
   public void launchBrowser() {
@@ -35,7 +26,7 @@ public class PracticeTestHomePage {
 	  driver.get("http://practice.automationtesting.in/");
 	  driver.manage().window().maximize();
 	  objHomePage = new PracticeHomePage(driver);
-	  
+	  objProductPage = new PracticeProductPage(driver);
   }
 
   @BeforeMethod
@@ -46,26 +37,37 @@ public class PracticeTestHomePage {
 	
   @Test
   public void testThreeSliders(){	  
-	  int countSliders = objHomePage.getSliders().size();
+	  int countSliders = objHomePage.getSlidersCount();
 	  Assert.assertEquals(countSliders, 3);
   }
   
   @Test
   public void testThreeArrivals() {
-	  int countArrivals = objHomePage.getArrivals().size();
+	  int countArrivals = objHomePage.getArrivalsCount();
 	  Assert.assertEquals(countArrivals, 3);
   }  
   
-  @Test(dependsOnMethods = { "testThreeArrivals" })
-  public void testArrImgNavigate() throws Exception {
-	  int count = objHomePage.getArrivals().size();
+  @Test(dependsOnMethods = {"testThreeArrivals"})
+  public void testArrImgNavigate() {
+	  int count = objHomePage.getArrivalsCount();
+	  String strHomeURL = driver.getCurrentUrl();	  
 	  for(int i = 0; i < count; i++) {
-		  objHomePage.getArrivals().get(i).click();
-		  WebElement weButton = objHomePage.getBtnAddToBasket();
-		  Assert.assertNotNull(weButton);
+		  objHomePage.getImageAt(i).click();	  
+		  objProductPage.verifyNavNextPage(strHomeURL);
+		  objProductPage.verifyAddToBasket();		  
 		  driver.navigate().back();
 	  }	 
   }  
+
+  @Test(dependsOnMethods = {"testArrImgNavigate"})
+  public void testArrBookDesc() {
+	  int count = objHomePage.getArrivalsCount();
+	  for(int i = 0; i < count; i++) {
+		  objHomePage.getImageAt(i).click();
+		  objProductPage.verifyProductDesc();
+		  driver.navigate().back();
+	  }	 
+  }
 
   @AfterMethod
   public void afterMethod() {	

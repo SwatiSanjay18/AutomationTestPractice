@@ -12,24 +12,23 @@ public class PracticeHomePage {
 	By home = By.xpath("//a[text() = 'Home']");
 	By sliders = By.xpath("//div[@class='n2-ss-slider-3']/div/div/img");
 	By arrivals = By.xpath("//ul[@class='products']");
-	By btnAddToBasket = By.xpath("//button[text()='Add to basket']");
-	
+		
 	public PracticeHomePage(WebDriver driver) {
 		this.driver = driver;
 	}
 	
-	public List<WebElement> getSliders() {
-		return(driver.findElements(sliders));
+	public int getSlidersCount() {
+		return(driver.findElements(sliders).size());
 	}
 	
-	public List<WebElement> getArrivals() {
-		return(driver.findElements(arrivals));
+	public int getArrivalsCount() {
+		return(driver.findElements(arrivals).size());
 	}
 	
-	public WebElement getBtnAddToBasket() {
-		return(driver.findElement(btnAddToBasket));
+	public WebElement getImageAt(int index) {
+		return(driver.findElements(arrivals).get(index));
 	}
-	  
+	 
 	public void clickOnShop() {
 		driver.findElement(shop).click();
 	}
