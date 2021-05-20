@@ -9,6 +9,8 @@
 					<include name="testThreeArrivals"/> 
 					<include name="testArrImgNavigate"/>
 					<include name="testArrBookDesc"/>
+					<include name="testArrBookReview"/>
+					<include name="testBookAddToBasket"/>
 				</methods>
 			</class>
 		</classes>

@@ -10,21 +10,33 @@ public class PracticeProductPage {
 	By btnAddToBasket = By.xpath("//button[text()='Add to basket']");
 	By tabBookDesc = By.xpath("//a[text()='Description']");
 	By paraBookDesc = By.xpath("//div[@id='tab-description']//p");
-
+	By tabBookReview = By.xpath("//a[@href='#tab-reviews']");
+	By paraBookReview = By.xpath("//div[@id='tab-reviews']//div[@id='reviews']//p");
+	By menuCartItem = By.xpath("//ul[@id='main-nav']//li[@id='wpmenucartli']//span[@class='cartcontents']");
+	By menuCartItemPrice = By.xpath("//ul[@id='main-nav']//li[@id='wpmenucartli']//span[@class='amount']");
+	
 	public PracticeProductPage(WebDriver driver) {
 		this.driver = driver;
 	}
 	
 	public WebElement getBtnAddToBasket() {
 		return(driver.findElement(btnAddToBasket));
-	}	
-	
+	}
+		
 	public void clickOnTabBookDesc() {
 		driver.findElement(tabBookDesc).click();;
 	}
 	
+	public void clickOnTabBookReview() {
+		driver.findElement(tabBookReview).click();;
+	}
+	
 	public String getTextBookDesc() {
 		return(driver.findElement(paraBookDesc).getText());
+	}
+	
+	public String getTextBookReview() {
+		return(driver.findElement(paraBookReview).getText());
 	}
 	
 	public void verifyNavNextPage(String strHomeURL) {
@@ -37,9 +49,22 @@ public class PracticeProductPage {
 		Assert.assertNotNull(weButton);
 	}
 	
-	public void verifyProductDesc() {
+	public void verifyBookDesc() {
 		clickOnTabBookDesc();
-		String strProductDesc = getTextBookDesc();
-		Assert.assertTrue(strProductDesc != "");
+		String strBookDesc = getTextBookDesc();
+		Assert.assertTrue(strBookDesc != "");
+	}	
+	
+	public void verifyBookReview() {
+		clickOnTabBookReview();
+		String strBookReview = getTextBookReview();
+		Assert.assertTrue(strBookReview != "");
+	}	
+	
+	public void verifyBookInCartInMenu() {
+		getBtnAddToBasket().click();
+		String strItem = driver.findElement(menuCartItem).getText();
+		String strPrice = driver.findElement(menuCartItemPrice).getText();
+		Assert.assertTrue((strItem != "") && (strPrice != ""));
 	}	
 }
