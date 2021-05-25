@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 public class PracticeProductPage {
@@ -18,11 +17,9 @@ public class PracticeProductPage {
 	By menuCartItemPrice = By.xpath("//ul[@id='main-nav']//li[@id='wpmenucartli']//span[@class='amount']");
 	By inputNoOfBooks = By.xpath("//div[@class='quantity']/input[@name='quantity']");
 	By errorMsg = By.xpath("//ul[@class='woocommerce-error']/li");
-	Actions act;
 	
 	public PracticeProductPage(WebDriver driver) {
 		this.driver = driver;
-		act = new Actions(this.driver);
 	}
 	
 	public WebElement getBtnAddToBasket() {
