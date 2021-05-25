@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<!-- test cases from 3 to 6 are commented as all criteria is included in the 7th -->
 <suite name="Practice">
 	<test name="AllPages">
 		<classes>
@@ -7,10 +9,11 @@
 				<methods>
 					<include name="testThreeSliders"/>
 					<include name="testThreeArrivals"/> 
-					<include name="testArrImgNavigate"/>
+					<!-- <include name="testArrImgNavigate"/>
 					<include name="testArrBookDesc"/>
 					<include name="testArrBookReview"/>
-					<include name="testBookAddToBasket"/>
+					<include name="testBookAddToBasket"/> -->
+					<include name="testMoreBooksAddToBasket"/>
 				</methods>
 			</class>
 		</classes>

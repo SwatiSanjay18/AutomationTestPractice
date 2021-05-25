@@ -99,6 +99,18 @@ public class PracticeTestHomePage {
 	  objProductPage.verifyNavNextPage(strHomeURL);
 	  objProductPage.verifyBookInCartInMenu();
   }
+  
+  //test error message if books added more than in stock
+  //the first book is clicked and added 
+  //books more than in stock is added  
+  @Test(dependsOnMethods = {"testThreeArrivals"})
+  public void testMoreBooksAddToBasket() {
+	  String strHomeURL = driver.getCurrentUrl();
+	  objHomePage.getImageAt(0).click();
+	  objProductPage.verifyNavNextPage(strHomeURL);
+	  objProductPage.verifyBookInCartInMenu();
+	  objProductPage.verifyDisplayErrorPrompt();
+  }
 
   @AfterMethod
   public void afterMethod() {	

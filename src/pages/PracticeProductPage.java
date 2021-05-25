@@ -1,8 +1,10 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 public class PracticeProductPage {
@@ -14,9 +16,13 @@ public class PracticeProductPage {
 	By paraBookReview = By.xpath("//div[@id='tab-reviews']//div[@id='reviews']//p");
 	By menuCartItem = By.xpath("//ul[@id='main-nav']//li[@id='wpmenucartli']//span[@class='cartcontents']");
 	By menuCartItemPrice = By.xpath("//ul[@id='main-nav']//li[@id='wpmenucartli']//span[@class='amount']");
+	By inputNoOfBooks = By.xpath("//div[@class='quantity']/input[@name='quantity']");
+	By errorMsg = By.xpath("//ul[@class='woocommerce-error']/li");
+	Actions act;
 	
 	public PracticeProductPage(WebDriver driver) {
 		this.driver = driver;
+		act = new Actions(this.driver);
 	}
 	
 	public WebElement getBtnAddToBasket() {
@@ -37,6 +43,15 @@ public class PracticeProductPage {
 	
 	public String getTextBookReview() {
 		return(driver.findElement(paraBookReview).getText());
+	}
+	
+	public String getErrorMsg() {
+		return(driver.findElement(errorMsg).getText());
+	}
+	
+	public WebElement getInputNoOfBooks() {
+		return(driver.findElement(inputNoOfBooks));
+		
 	}
 	
 	public void verifyNavNextPage(String strHomeURL) {
@@ -66,5 +81,14 @@ public class PracticeProductPage {
 		String strItem = driver.findElement(menuCartItem).getText();
 		String strPrice = driver.findElement(menuCartItemPrice).getText();
 		Assert.assertTrue((strItem != "") && (strPrice != ""));
-	}	
+	}
+	
+	public void verifyDisplayErrorPrompt() {		
+		WebElement weInputBooks = getInputNoOfBooks();
+		weInputBooks.sendKeys(Keys.DELETE);
+		weInputBooks.sendKeys("9870");
+		getBtnAddToBasket().click();
+		String errMsg = getErrorMsg();
+		Assert.assertTrue(errMsg.contains("You cannot add that amount to the cart"));
+	}
 }
